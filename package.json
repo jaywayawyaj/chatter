@@ -8,9 +8,19 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "start:server": "node dist/server.js",
+    "start:client": "http-server -p 3000",
+    "dev": "concurrently \"npm run build && npm run start:server\" \"npm run start:client\"",
+    "watch": "tsc -w"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "http-server": "^14.1.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
 }

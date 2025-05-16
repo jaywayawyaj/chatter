@@ -38,4 +38,4 @@ wss.on('listening', () => {
 
   wss.on('error', (error: Error) => {
     console.error('Server error:', error);
-  });
+});
