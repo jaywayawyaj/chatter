@@ -46,10 +46,10 @@ wss.on('connection', (ws) => {
                 client.send(msg);
             }
         });
-        ws.on('close', () => {
-            console.log('Client disconnected');
-            ws.isAlive = false;
-        });
+    });
+    ws.on('close', () => {
+        console.log('Client disconnected');
+        ws.isAlive = false;
     });
     ws.on('error', (error) => {
         console.log('Error', error);

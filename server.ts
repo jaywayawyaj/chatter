@@ -20,11 +20,11 @@ wss.on('connection', (ws: Client) => {
                 client.send(msg);
             }
         })
+    })
 
-        ws.on('close', () => {
-            console.log('Client disconnected');
-            ws.isAlive = false;
-        })
+    ws.on('close', () => {
+        console.log('Client disconnected');
+        ws.isAlive = false;
     })
 
     ws.on('error', (error: Error) => {

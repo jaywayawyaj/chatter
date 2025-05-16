@@ -8,14 +8,17 @@ class ChatApp {
     private chatDiv: HTMLDivElement;
     private messageInput: HTMLInputElement;
     private sendButton: HTMLButtonElement;
+    private logButton: HTMLButtonElement;
 
     constructor() {
         this.ws = new WebSocket("ws://localhost:8080");
         this.chatDiv = document.getElementById('chat') as HTMLDivElement;
         this.messageInput = document.getElementById('message') as HTMLInputElement;
         this.sendButton = document.getElementById('sendButton') as HTMLButtonElement;
+        this.logButton = document.getElementById('logButton') as HTMLButtonElement;
 
         this.initialiseWebsocket();
+        this.initialiseEventListeners();
     }
 
     private initialiseWebsocket(): void {
@@ -54,6 +57,7 @@ class ChatApp {
                 this.sendMessage();
             }
         })
+        this.logButton.addEventListener('click', () => this.logChatContents())
     }
 
     private sendMessage(): void {
@@ -69,6 +73,11 @@ class ChatApp {
         msgDiv.textContent = `[${message.timestamp}] ${message.text}`;
         this.chatDiv.appendChild(msgDiv)
         this.chatDiv.scrollTop = this.chatDiv.scrollHeight;
+    }
+
+    private logChatContents(): void {
+        const messages = Array.from(this.chatDiv.children).map(div => div.textContent);
+        console.log('Current chat contents:', messages);
     }
 }
 

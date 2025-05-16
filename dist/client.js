@@ -5,7 +5,9 @@ class ChatApp {
         this.chatDiv = document.getElementById('chat');
         this.messageInput = document.getElementById('message');
         this.sendButton = document.getElementById('sendButton');
+        this.logButton = document.getElementById('logButton');
         this.initialiseWebsocket();
+        this.initialiseEventListeners();
     }
     initialiseWebsocket() {
         this.ws.onopen = () => {
@@ -38,6 +40,7 @@ class ChatApp {
                 this.sendMessage();
             }
         });
+        this.logButton.addEventListener('click', () => this.logChatContents());
     }
     sendMessage() {
         const message = this.messageInput.value.trim();
@@ -51,6 +54,10 @@ class ChatApp {
         msgDiv.textContent = `[${message.timestamp}] ${message.text}`;
         this.chatDiv.appendChild(msgDiv);
         this.chatDiv.scrollTop = this.chatDiv.scrollHeight;
+    }
+    logChatContents() {
+        const messages = Array.from(this.chatDiv.children).map(div => div.textContent);
+        console.log('Current chat contents:', messages);
     }
 }
 window.onload = () => {
